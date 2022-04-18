@@ -2,10 +2,16 @@ import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
 import { Grid, Hero } from '@components/ui'
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 // import CollectionTabs from '@components/ui/CollectionTabs'
-// import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
+import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 export async function getStaticProps({
   preview,
   locale,
@@ -37,7 +43,7 @@ export async function getStaticProps({
 }
 
 export default function Home({
-  products,
+  products,categories,brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
@@ -45,6 +51,20 @@ export default function Home({
         headline=" Hero Image"
         description="Lorem ipsum dolor sit amet, consectetor adisping elit, sed"
       />
+       <Swiper
+      // install Swiper modules
+      modules={[Navigation, Pagination, Scrollbar, A11y]}
+      spaceBetween={50}
+      slidesPerView={3}
+      navigation
+      onSwiper={(swiper) => console.log(swiper)}
+      onSlideChange={() => console.log('slide change')}
+    >
+      <SwiperSlide>Womens Jumper</SwiperSlide>
+      <SwiperSlide>Mens Accessories</SwiperSlide>
+      <SwiperSlide>Mens Jumpers</SwiperSlide>
+      <SwiperSlide>Mens</SwiperSlide>
+    </Swiper>
       {/* <CollectionTabs></CollectionTabs> */}
       {/* <Grid variant="filled">
         {products.slice(0, 3).map((product: any, i: number) => (
@@ -59,11 +79,6 @@ export default function Home({
           />
         ))}
       </Grid> */}
-      {/* <Marquee variant="secondary">
-        {products.slice(0, 3).map((product: any, i: number) => (
-          <ProductCard key={product.id} product={product} variant="slim" />
-        ))}
-      </Marquee> */}
       <Grid layout="normal" variant="filled">
         {products.slice(0, 6).map((product: any, i: number) => (
           <ProductCard
@@ -76,11 +91,32 @@ export default function Home({
           />
         ))}
       </Grid>
-      {/* <HomeAllProductsGrid
-        newestProducts={products}
+      <Swiper
+      // install Swiper modules
+      modules={[Navigation, Pagination, Scrollbar, A11y]}
+      spaceBetween={16}
+      slidesPerView={3}
+      navigation
+      onSwiper={(swiper) => console.log(swiper)}
+      onSlideChange={() => console.log('slide change')}
+    >
+      {products.slice(0, 6).map((product: any, i: number) => (
+          <SwiperSlide key={product.id}>
+          <ProductCard
+            key={product.id}
+            product={product}
+            imgProps={{
+              width: i === 0 ? 1080 : 540,
+              height: i === 0 ? 1080 : 540,
+            }}
+          />
+          </SwiperSlide>
+        ))}
+    </Swiper>
+      <HomeAllProductsGrid
         categories={categories}
         brands={brands}
-      /> */}
+      />
     </>
   )
 }
