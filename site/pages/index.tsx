@@ -1,7 +1,8 @@
+import { GraphQLClient, gql } from 'graphql-request'
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
-import { Grid, Hero } from '@components/ui'
+import { Grid, Hero, } from '@components/ui'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import CollectionTabs from '@components/ui/CollectionTabs'
@@ -31,26 +32,58 @@ export async function getStaticProps({
   const { pages } = await pagesPromise
   const { categories, brands } = await siteInfoPromise
 
+  const endpoint = 'https://graphql.contentful.com/content/v1/spaces/ei8z56ft9sxn'
+
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: 'Bearer EdUFHgquVUFelN_OVeJC2WWgVuA-icAw5yh0Q7Lrdzk',
+    },
+  })
+
+  const homeQuery= gql`
+  {
+    homeHeroBannerCollection {
+      items {
+        heading
+        description
+        heroImagesCollection {
+          items {
+            url
+          }
+        }
+      }
+    }
+  }
+  
+`
+const data = await graphQLClient.request(homeQuery)
+
+
   return {
     props: {
       products,
       categories,
       brands,
       pages,
+      homeBanners : data.homeHeroBannerCollection.items,
     },
     revalidate: 60,
   }
 }
 
 export default function Home({
-  products,categories,brands,
+  products,categories,brands,homeBanners,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
+     {homeBanners.map((homeBanner : any) =>
         <Hero
-        headline=" Hero Image"
-        description="Lorem ipsum dolor sit amet, consectetor adisping elit, sed"
+        key={homeBanner.id}
+        headline={homeBanner.heading}
+        description={homeBanner.description}
       />
+        )}
+
        <Swiper
       // install Swiper modules
       modules={[Navigation, Pagination, Scrollbar, A11y]}
