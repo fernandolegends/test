@@ -4,8 +4,8 @@ import s from './Hero.module.css'
 import Link from 'next/link'
 interface HeroProps {
   className?: string
-  headline: string
-  description: string
+  headline: any
+  description: any
 }
 
 const Hero: FC<HeroProps> = ({ headline, description }) => {
