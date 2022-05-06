@@ -42,9 +42,6 @@ const ProductCard: FC<Props> = ({
       <a className={rootClassName} aria-label={product.name}>
         {variant === 'slim' && (
           <>
-            <div className={s.header}>
-              <span>{product.name}</span>
-            </div>
             {product?.images && (
               <div>
                 <Image
@@ -58,6 +55,7 @@ const ProductCard: FC<Props> = ({
                 />
               </div>
             )}
+                    <p>{product.name}</p>
           </>
         )}
 
@@ -108,10 +106,6 @@ const ProductCard: FC<Props> = ({
                 variant={product.variants[0] as any}
               />
             )}
-            <ProductTag
-              name={product.name}
-              price={`${price} ${product.price?.currencyCode}`}
-            />
             <div className={s.imageContainer}>
               {product?.images && (
                 <div>
@@ -130,6 +124,10 @@ const ProductCard: FC<Props> = ({
             </div>
           </>
         )}
+        <ProductTag
+              name={product.name}
+              price={`${price} ${product.price?.currencyCode}`}
+            />
       </a>
     </Link>
   )
