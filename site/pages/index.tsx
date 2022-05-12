@@ -101,8 +101,9 @@ export default function Home({
     <>
      {homeBanners.map((homeBanner : any) =>
          <div key="Hero widget" className="relative bg-black overflow-hidden">
-         <div className="lg:flex items-center">
-           <div className="lg:basis-1/2">
+           <div className="container mx-auto">
+         <div className="md:flex items-center">
+           <div className="md:basis-1/3">
            <div className="sm:text-center lg:text-left">
                        <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
                          <span className="block text-white xl:inline">{homeBanner.heading}</span>
@@ -122,7 +123,7 @@ export default function Home({
                        </div>
                      </div>
            </div>
-           <div className="lg:basis-1/4">
+           <div className="md:basis-1/3">
           <Image
                 src={homeBanner.heroImageOne.url}
                 alt="Fifa Right Image"
@@ -132,7 +133,7 @@ export default function Home({
                priority
               />
            </div>
-           <div className="lg:basis-1/4">
+           <div className="md:basis-1/3">
            <Image
                 src={homeBanner.heroImage2.url}
                 alt="Fifa Right Image"
@@ -143,15 +144,17 @@ export default function Home({
               />
            </div>
            </div>
-         </div>
+           </div>
+           </div>
+           
         )}
 
 <div className="container mx-auto">
 {homeBanners.map((homeBanner : any) =>
          <div key="Collection slider widget" className="relative bg-white overflow-hidden">
            <div className="py-12 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="lg:text-center">
+      <div className="mx-auto ">
+        <div className="text-left">
           <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
             {homeBanner.categoryFocusTitle}
           </p>
@@ -162,15 +165,21 @@ export default function Home({
       // install Swiper modules
       modules={[Navigation, Pagination, Scrollbar, A11y]}
       spaceBetween={16}
-      slidesPerView={4}
       navigation
       onSwiper={(swiper) => console.log(swiper)}
       onSlideChange={() => console.log('slide change')}
+      breakpoints={{
+        // when window width is >= 768px
+        768: {
+          width: 768,
+          slidesPerView: 2,
+        },
+      }}
+      slidesPerView={4}
     >
       
       <SwiperSlide>
         <div>
-        <h3>{homeBanner.category1Title}</h3>
         <Image
                 src={homeBanner.category1Image.url}
                 alt="Fifa Right Image"
@@ -179,11 +188,11 @@ export default function Home({
                height={450}
                priority
               />
-        </div>
+        <h3 className="category-focus-title">{homeBanner.category1Title}</h3>
+      </div>
       </SwiperSlide>
       <SwiperSlide>
         <div>
-        <h3>{homeBanner.category2Title}</h3>
         <Image
                 src={homeBanner.category2Image.url}
                 alt="Fifa Right Image"
@@ -192,11 +201,12 @@ export default function Home({
                height={450}
                priority
               />
+
+        <h3 className="category-focus-title">{homeBanner.category2Title}</h3>
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div>
-        <h3>{homeBanner.category3Title}</h3>
         <Image
                 src={homeBanner.category3Image.url}
                 alt="Fifa Right Image"
@@ -205,11 +215,12 @@ export default function Home({
                height={450}
                priority
               />
+
+        <h3 className="category-focus-title">{homeBanner.category3Title}</h3>
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div>
-        <h3>{homeBanner.category4Title}</h3>
         <Image
                 src={homeBanner.category4Image.url}
                 alt="Fifa Right Image"
@@ -218,13 +229,15 @@ export default function Home({
                height={450}
                priority
               />
+
+        <h3 className="category-focus-title">{homeBanner.category4Title}</h3>
         </div>
       </SwiperSlide>
     </Swiper>
          </div>
         )}
 
-        
+
       <Swiper
       // install Swiper modules
       modules={[Navigation, Pagination, Scrollbar, A11y]}
