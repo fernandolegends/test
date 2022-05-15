@@ -42,39 +42,30 @@ export async function getStaticProps({
 
   const homeQuery= gql`
   {
-    homeHeroBannerCollection {
-      items {
-        heading
-        description
-        heroImageOne{
-          url
+    heroImageWidgetCollection(limit:1){
+      items{
+        heroImageHeadline
+        heroImageDescription
+        heroImageCta
+        heroImageCollection
+        imagesCollection (limit:2){
+          items{
+            url
+          }
         }
-        heroImage2 {
-          url
-        }
-        categoryFocusTitle
-        category1Url
-        category1Title
-        category1Image{
-          url
-        }
-        category2Url
-        category2Title
-        category2Image{
-          url
-        }
-        category3Url
-        category3Title
-        category3Image{
-          url
-        }
-        category4Url
-        category4Title
-        category4Image{
-          url
-        }
-      }   	
+      }
     }
+    categoryFocusWidgetCollection(limit:1){
+      items{
+        widgetTitle
+        collectionImageOverrideCollection(limit:10){
+          items{
+            title
+            url
+          }
+        }
+      }
+    }      
   }
   
 `
@@ -87,35 +78,38 @@ const data = await graphQLClient.request(homeQuery)
       categories,
       brands,
       pages,
-      homeBanners : data.homeHeroBannerCollection.items,
+      heroWidgets : data.heroImageWidgetCollection.items,
+      categoryWidgets:  data.categoryFocusWidgetCollection.items,
+
     },
     revalidate: 60,
   }
 }
 
 export default function Home({
-  products,categories,brands,homeBanners,
+  products,categories,brands,heroWidgets,categoryWidgets,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log(homeBanners)
+console.log(heroWidgets)
   return (
     <>
-     {homeBanners.map((homeBanner : any) =>
+     {heroWidgets.map((heroWidget : any) =>
          <div key="Hero widget" className="relative bg-black overflow-hidden">
            <div className="container mx-auto">
          <div className="md:flex items-center">
            <div className="md:basis-1/3">
            <div className="sm:text-center lg:text-left">
                        <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                         <span className="block text-white xl:inline">{homeBanner.heading}</span>
+                         <span className="block text-white xl:inline">{heroWidget.heroImageHeadline}</span>
+                         <span>{heroWidget.imagesCollection.items.url}</span>
                        </h1>
                        <p className="mt-3 text-base text-white sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                        <span className='text-white'>{homeBanner.description}</span>
+                        <span className='text-white'>{heroWidget.heroImageDescription}</span>
                        </p>
                        <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                          <div className="mt-3 sm:mt-0">
                            <a
                              href="#"
-                             className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-black bg-white hover:bg-indigo-200 md:py-4 md:text-lg md:px-10"
+                             className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold text-black bg-white md:py-2 md:text-lg md:px-8"
                            >
                             Shop Now
                            </a>
@@ -123,17 +117,17 @@ export default function Home({
                        </div>
                      </div>
            </div>
-           <div className="md:basis-1/3">
+           {/* <div className="md:basis-1/3">
           <Image
-                src={homeBanner.heroImageOne.url}
+                src={heroWidget.url}
                 alt="Fifa Right Image"
                layout='intrinsic'
                width={528}
                height={492}
                priority
               />
-           </div>
-           <div className="md:basis-1/3">
+           </div> */}
+           {/* <div className="md:basis-1/3">
            <Image
                 src={homeBanner.heroImage2.url}
                 alt="Fifa Right Image"
@@ -142,7 +136,7 @@ export default function Home({
                height={492}
                priority
               />
-           </div>
+           </div> */}
            </div>
            </div>
            </div>
@@ -150,7 +144,7 @@ export default function Home({
         )}
 
 <div className="container mx-auto">
-{homeBanners.map((homeBanner : any) =>
+{/* {homewidgets.map((homewidget : any) =>
          <div key="Collection slider widget" className="relative bg-white overflow-hidden">
            <div className="py-12 bg-white">
       <div className="mx-auto ">
@@ -235,7 +229,7 @@ export default function Home({
       </SwiperSlide>
     </Swiper>
          </div>
-        )}
+        )} */}
 
 
       <Swiper
@@ -244,8 +238,6 @@ export default function Home({
       spaceBetween={8}
       slidesPerView={3}
       navigation
-      onSwiper={(swiper) => console.log(swiper)}
-      onSlideChange={() => console.log('slide change')}
     >
       {products.slice(0, 6).map((product: any, i: number) => (
           <SwiperSlide key={product.id}>
@@ -263,11 +255,47 @@ export default function Home({
 
 
 
-      <HomeAllProductsGrid
+      {/* <HomeAllProductsGrid
         categories={categories}
         brands={brands}
-      />
+      /> */}
+      <div className="bg-white py-16 lg:py-24">
+      <div className="relative mx-auto">
+        <div className="relative py-24 px-8 bg-black rounded-xl shadow-2xl overflow-hidden lg:px-16 lg:grid lg:grid-cols-2 lg:gap-x-8">
+          {/* <div className="absolute inset-0 opacity-50 filter saturate-0 mix-blend-multiply">
+            <img
+              src="https://images.unsplash.com/photo-1601381718415-a05fb0a261f3?ixid=MXwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8ODl8fHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1216&q=80"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div> */}
+          <div className="relative lg:col-span-1">
+            <blockquote className="mt-6 text-white">
+              <p className="text-xl font-medium sm:text-2xl">
+              Lorem ipsum dolor sit amet. 33 praesentium Quis sed commodi unde id quia ratione et repellendus praesentium. Sit exercitationem minima non laborum ratione vero cupiditate qui ullam aspernatur.
+              </p>
+              <footer className="mt-6">
+                <p className="flex flex-col font-medium">
+                  <span>Marie Chilvers</span>
+                </p>
+                <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                         <div className="mt-3 sm:mt-0">
+                           <a
+                             href="#"
+                             className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold text-black bg-white md:py-2 md:text-lg md:px-8"
+                           >
+                            Shop Now
+                           </a>
+                         </div>
+                       </div>
+              </footer>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
+
     </>
   )
 }
