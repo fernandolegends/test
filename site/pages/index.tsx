@@ -86,12 +86,7 @@ const data = await graphQLClient.request(homeQuery)
     revalidate: 60,
   }
 }
-const tabs = [
-  { name: 'My Account', href: '#', current: false },
-  { name: 'Company', href: '#', current: false },
-  { name: 'Team Members', href: '#', current: true },
-  { name: 'Billing', href: '#', current: false },
-]
+
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
@@ -171,14 +166,6 @@ export default function Home({
 
 <div className="bg-black px-10 py-8">
   <div>
-  <div className="sm:flex sm:items-baseline sm:justify-between">
-              <h2 id="category-heading" className="text-2xl font-extrabold tracking-tight text-gray-900">
-                Shop by Category
-              </h2>
-              <a href="#" className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
-                Browse all categories<span aria-hidden="true"> &rarr;</span>
-              </a>
-            </div>
         <div className="text-left ">
           <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl ">
             PRODUCT CAROUSEL
@@ -257,85 +244,6 @@ export default function Home({
     </div>
 </div>
 
-
-
-
-<section aria-labelledby="category-heading">
-          <div className="mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
-
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-2">
-              <div className="group aspect-w-2 aspect-h-1 overflow-hidden sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2">
-                <img
-                  src="https://tailwindui.com/img/ecommerce-images/home-page-03-featured-category.jpg"
-                  alt="Two models wearing women's black cotton crewneck tee and off-white cotton crewneck tee."
-                  className="object-center object-cover group-hover:opacity-75"
-                />
-                <div aria-hidden="true" className="bg-gradient-to-b from-transparent to-black opacity-50" />
-                <div className="p-6 flex items-end">
-                  <div>
-                    <h3 className="font-semibold text-white">
-                      <a href="#">
-                        <span className="absolute inset-0" />
-                        New Arrivals
-                      </a>
-                    </h3>
-                    <p aria-hidden="true" className="mt-1 text-sm text-white">
-                      Shop now
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="group aspect-w-2 aspect-h-1 overflow-hidden sm:relative sm:aspect-none sm:h-full">
-                <img
-                  src="https://tailwindui.com/img/ecommerce-images/home-page-03-category-01.jpg"
-                  alt="Wooden shelf with gray and olive drab green baseball caps, next to wooden clothes hanger with sweaters."
-                  className="object-center object-cover group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full"
-                />
-                <div
-                  aria-hidden="true"
-                  className="bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0"
-                />
-                <div className="p-6 flex items-end sm:absolute sm:inset-0">
-                  <div>
-                    <h3 className="font-semibold text-white">
-                      <a href="#">
-                        <span className="absolute inset-0" />
-                        Accessories
-                      </a>
-                    </h3>
-                    <p aria-hidden="true" className="mt-1 text-sm text-white">
-                      Shop now
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="group aspect-w-2 aspect-h-1 overflow-hidden sm:relative sm:aspect-none sm:h-full">
-                <img
-                  src="https://tailwindui.com/img/ecommerce-images/home-page-03-category-02.jpg"
-                  alt="Walnut desk organizer set with white modular trays, next to porcelain mug on wooden desk."
-                  className="object-center object-cover group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full"
-                />
-                <div
-                  aria-hidden="true"
-                  className="bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0"
-                />
-                <div className="p-6 flex items-end sm:absolute sm:inset-0">
-                  <div>
-                    <h3 className="font-semibold text-white">
-                      <a href="#">
-                        <span className="absolute inset-0" />
-                        Workspace
-                      </a>
-                    </h3>
-                    <p aria-hidden="true" className="mt-1 text-sm text-white">
-                      Shop now
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
 
         <div>
